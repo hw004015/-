@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="鹏哥的快乐相亲 - 一个做自媒体的普通男孩，认真寻找另一半。非诚勿扰。">
+<meta name="keywords" content="相亲,鹏哥,交友,自媒体,找对象,真诚交友,非诚勿扰">
+<meta property="og:title" content="鹏哥的快乐相亲 | 非诚勿扰">
+<meta property="og:description" content="从小可爱长成大男孩，自媒体创业者，期待遇见真诚的你。">
+<meta property="og:type" content="website">
+<title>鹏哥的快乐相亲 | 非诚勿扰</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --pink: #FF6B8A;
+    --pink-light: #FFF0F3;
+    --gold: #F5A623;
+    --dark: #2D1B2E;
+    --text: #4A3142;
+    --white: #FFFFFF;
+    --bg: #FFFAFB;
+    --card-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  }
+
+  body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ── 爱心飘落动画 ── */
+  .hearts-container {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+  }
+  .floating-heart {
+    position: absolute;
+    animation: floatUp 8s linear infinite;
+    opacity: 0; font-size: 1.5rem;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.8; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* ── 导航 ── */
+  nav {
+    position: fixed; top: 0; width: 100%;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+    border-bottom: 1px solid #ffe0e8;
+  }
+  .nav-inner {
+    max-width: 900px; margin: 0 auto;
+    padding: 14px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo { font-size: 1.2rem; font-weight: 900; color: var(--pink); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text);
+    font-size: 0.9rem; font-weight: 600;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--pink); }
+
+  /* ── 主体 ── */
+  .main-content {
+    position: relative; z-index: 1;
+    max-width: 800px; margin: 0 auto;
+    padding: 90px 24px 60px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 40px 0 50px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--pink-light);
+    color: var(--pink);
+    font-weight: 700; font-size: 0.9rem;
+    padding: 8px 22px;
+    border-radius: 50px;
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--dark);
+    letter-spacing: 3px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .hero h1 .highlight {
+    background: linear-gradient(135deg, var(--pink), #FF4080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: #999;
+    font-weight: 600;
+    letter-spacing: 6px;
+    margin-bottom: 6px;
+  }
+  .hero-tagline {
+    font-size: 1rem;
+    color: #bbb;
+    font-style: italic;
+  }
+
+  /* ── 照片区 ── */
+  .photos-section {
+    padding: 30px 0 50px;
+  }
+  .photos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  @media (max-width: 580px) {
+    .photos-grid { grid-template-columns: 1fr; max-width: 280px; }
+    .hero h1 { font-size: 2.2rem; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 0.8rem; }
+  }
+  .photo-card { text-align: center; }
+  .photo-label {
+    display: inline-block;
+    background: var(--dark);
+    color: white;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .photo-label.kid { background: #FFB347; }
+  .photo-label.now { background: var(--pink); }
+  .photo-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 10px 36px rgba(255,107,138,0.15);
+    background: linear-gradient(135deg, #ffe8ed, #fff5f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
+  .photo-frame:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 48px rgba(255,107,138,0.25);
+  }
+  .photo-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .photo-placeholder {
+    text-align: center;
+    color: #ccc;
+  }
+  .photo-placeholder .icon { font-size: 3.5rem; }
+  .photo-placeholder .hint { font-size: 0.85rem; color: #bbb; margin-top: 8px; }
+  .photo-caption {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #aaa;
+    font-style: italic;
+  }
+
+  /* ── 分区标题 ── */
+  .section-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 48px 0 24px;
+    letter-spacing: 2px;
+  }
+  .section-title span { color: var(--pink); }
+
+  /* ── 关于我 ── */
+  .about-card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid #f5e8ec;
+  }
+  .about-card .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .tag {
+    background: var(--pink-light);
+    color: var(--pink);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+  }
+  .about-card p {
+    font-size: 1.02rem;
+    margin-bottom: 12px;
+    text-indent: 2em;
+  }
+  .about-card .signature {
+    text-align: right;
+    font-weight: 700;
+    color: var(--pink);
+    margin-top: 14px;
+    font-size: 1.05rem;
+  }
+
+  /* ── 我的日常 ── */
+  .daily-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+  }
+  .daily-item {
+    background: white;
+    border-radius: 16px;
+    padding: 26px 16px;
+    text-align: center;
+    border: 1px solid #f5e8ec;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .daily-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  }
+  .daily-item .icon { font-size: 2.4rem; margin-bottom: 8px; }
+  .daily-item .label { font-weight: 700; font-size: 0.95rem; color: var(--dark); }
+  .daily-item .desc { font-size: 0.8rem; color: #aaa; margin-top: 2px; }
+
+  /* ── 我想找 ── */
+  .looking-card {
+    background: linear-gradient(135deg, #fff5f7, #fff);
+    border-radius: 20px;
+    padding: 34px;
+    border: 2px dashed #ffe0e8;
+    text-align: center;
+  }
+  .looking-card .big-heart {
+    font-size: 3rem;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50%     { transform: scale(1.2); }
+  }
+  .looking-card .sub-text {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .looking-list {
+    list-style: none;
+    text-align: left;
+    max-width: 420px;
+    margin: 18px auto 0;
+  }
+  .looking-list li {
+    padding: 9px 0;
+    font-size: 1rem;
+    border-bottom: 1px dotted #ffe0e8;
+  }
+  .looking-list li::before { content: '💝 '; }
+
+  /* ── 联系表单 ── */
+  .contact-section {
+    background: white;
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid #f5e8ec;
+    margin-top: 8px;
+  }
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-weight: 700; font-size: 0.88rem;
+    margin-bottom: 6px;
+    color: var(--dark);
+    letter-spacing: 1px;
+  }
+  .form-group label .required { color: var(--pink); }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 13px 16px;
+    border: 2px solid #f0e0e5;
+    border-radius: 12px;
+    font-size: 0.98rem;
+    font-family: inherit;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background: #FFFAFB;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--pink);
+    box-shadow: 0 0 0 4px rgba(255,107,138,0.08);
+  }
+  .form-group textarea { resize: vertical; min-height: 96px; }
+  .radio-group {
+    display: flex; gap: 18px; flex-wrap: wrap;
+  }
+  .radio-group label {
+    display: flex; align-items: center; gap: 6px;
+    font-weight: 500; cursor: pointer; font-size: 0.93rem;
+  }
+  .radio-group input[type="radio"] {
+    width: auto; accent-color: var(--pink);
+  }
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--pink), #FF4080);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(255,107,138,0.32);
+  }
+  .submit-btn:active { transform: scale(0.97); }
+  .submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ── 成功弹窗 ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.45);
+    z-index: 999;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: white;
+    border-radius: 24px;
+    padding: 44px 32px;
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  @keyframes popIn {
+    0%   { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1);   opacity: 1; }
+  }
+  .modal-emoji { font-size: 4.5rem; animation: bounce 0.6s ease-out; }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    30%     { transform: translateY(-30px); }
+    50%     { transform: translateY(0); }
+    70%     { transform: translateY(-15px); }
+  }
+  .modal-title {
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--dark); margin: 14px 0 6px;
+  }
+  .modal-desc { color: #999; margin-bottom: 18px; line-height: 1.7; }
+  .modal-close {
+    padding: 11px 36px;
+    background: var(--pink);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 2px;
+  }
+  .modal-close:hover { opacity: 0.9; }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: var(--dark);
+    color: white;
+    padding: 12px 26px;
+    border-radius: 30px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    z-index: 200;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    font-size: 0.9rem;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── 页脚 ── */
+  footer {
+    text-align: center;
+    padding: 36px 20px;
+    color: #ccc;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    position: relative; z-index: 1;
+  }
+  footer .heart { color: var(--pink); }
+</style>
+</head>
+<body>
+
+<!-- 飘落爱心 -->
+<div class="hearts-container" id="hearts"></div>
+
+<!-- 导航 -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">💘 鹏哥的快乐相亲</div>
+    <ul class="nav-links">
+      <li><a href="#about">关于我</a></li>
+      <li><a href="#looking">理想型</a></li>
+      <li><a href="#contact">联系我</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 主体 -->
+<div class="main-content">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">🔔 非诚勿扰 · 真诚征友</div>
+    <h1>鹏哥的<span class="highlight">快乐相亲</span></h1>
+    <p class="hero-subtitle">PENG'S HAPPY MATCHMAKING</p>
+    <p class="hero-tagline">—— 一个做自媒体的普通人，想认真谈个恋爱。</p>
+  </section>
+
+  <!-- 照片区 —— 替换 src 为你的照片文件名 -->
+  <section class="photos-section">
+    <div class="photos-grid">
+      <div class="photo-card">
+        <div class="photo-label kid">👶 小时候的我</div>
+        <div class="photo-frame">
+          <!-- ★★ 把「小时候的照片」重命名为 kid.jpg，放在和 index.html 同一个文件夹 ★★ -->
+          <img src="kid.jpg" alt="小时候的鹏哥"
+               onerror="this.style.display='none';this.parentElement.innerHTML='<div class=photo-placeholder><div class=icon>👶</div><div class=hint>把小时候照片命名为<br><b>kid.jpg</b><br>放在同一文件夹</div></div>'">
+        </div>
+        <p class="photo-caption">那时候我还相信自己是充话费送的</p>
+      </div>
+      <div class="photo-card">
+        <div class="photo-label now">🧑 22岁的我</div>
+        <div class="photo-frame">
+          <!-- ★★ 把「现在的照片」重命名为 now.jpg，放在和 index.html 同一个文件夹 ★★ -->
+          <img src="now.jpg" alt="22岁的鹏哥"
+               onerror="this.style.display='none';this.parentElement.innerHTML='<div class=photo-placeholder><div class=icon>🧑</div><div class=hint>把近照命名为<br><b>now.jpg</b><br>放在同一文件夹</div></div>'">
+        </div>
+        <p class="photo-caption">现在不一样了，现在是帅一点的充话费送的</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于我 -->
+  <section id="about">
+    <h2 class="section-title">📖 关于<span>鹏哥</span></h2>
+    <div class="about-card">
+      <div class="tag-row">
+        <span class="tag">🎬 自媒体人</span>
+        <span class="tag">📱 日均剪片8小时</span>
+        <span class="tag">☕ 咖啡续命选手</span>
+        <span class="tag">🐶 喜欢狗</span>
+        <span class="tag">🏀 偶尔打球</span>
+        <span class="tag">🍜 会煮泡面</span>
+      </div>
+      <p>你好呀，我叫鹏哥，今年22岁，一个正在自媒体赛道上死磕的普通青年。</p>
+      <p>每天睁眼就是选题、拍摄、剪辑、发布——然后看数据，心跳加速，再循环。生活被剪成了无数个15秒，但总觉得缺了一个能陪我一起看数据的人。</p>
+      <p>我不是富二代，也没什么逆天的颜值，就是一个认真做事、认真生活的人。做自媒体的好处是时间灵活，坏处是——微信里全是甲方和同行，已经忘了「在吗」这两个字后面跟的不是修改意见是什么感觉。</p>
+      <p>朋友都说我挺搞笑的，可能因为一个人对着镜头的日子太多，总得学会逗自己开心。但搞笑的人啊，往往也是最想被人认真对待的人。</p>
+      <p>如果你愿意，我想把镜头外的故事，讲给你听。</p>
+      <p class="signature">—— 鹏哥，一个认真找对象的人。</p>
+    </div>
+  </section>
+
+  <!-- 我的日常 -->
+  <h2 class="section-title">📅 和我在<span>一起</span>的日常</h2>
+  <div class="daily-grid">
+    <div class="daily-item">
+      <div class="icon">🎥</div>
+      <div class="label">拍视频</div>
+      <div class="desc">你可以在旁边笑我NG</div>
+    </div>
+    <div class="daily-item">
+      <div class="icon">🍳</div>
+      <div class="label">学做饭</div>
+      <div class="desc">目前最高水平：不会炸厨房</div>
+    </div>
+    <div class="daily-item">
+      <div class="icon">🚗</div>
+      <div class="label">兜风</div>
+      <div class="desc">副驾留给你，歌你来选</div>
+    </div>
+    <div class="daily-item">
+      <div class="icon">📺</div>
+      <div class="label">刷剧</div>
+      <div class="desc">什么都看，除了恐怖片（怕）</div>
+    </div>
+  </div>
+
+  <!-- 理想型 -->
+  <section id="looking">
+    <h2 class="section-title">💘 我想找<span>这样的你</span></h2>
+    <div class="looking-card">
+      <div class="big-heart">❤️</div>
+      <p class="sub-text">没有完美的人，只有合不合适。</p>
+      <ul class="looking-list">
+        <li>年龄差不多，聊得来比什么都重要</li>
+        <li>性格真诚，不用端着，做自己就好</li>
+        <li>能接受我偶尔因为剪片而回消息慢</li>
+        <li>喜欢笑，也允许生活偶尔不那么好笑</li>
+        <li>坐标不限，但愿意奔现</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 联系表单 -->
+  <section id="contact">
+    <h2 class="section-title">📬 勇敢<span>联系我</span></h2>
+    <div class="contact-section">
+      <p style="text-align:center;color:#aaa;margin-bottom:22px;">
+        把联系方式留下，迈出第一步。<br>我会认真回复每一条信息 💌
+      </p>
+      <form id="contactForm">
+        <div class="form-group">
+          <label>你的称呼 <span class="required">*</span></label>
+          <input type="text" id="name" placeholder="怎么称呼你？" required maxlength="20">
+        </div>
+        <div class="form-group">
+          <label>年龄</label>
+          <input type="number" id="age" placeholder="方便的话告诉我年龄～" min="18" max="99">
+        </div>
+        <div class="form-group">
+          <label>性别</label>
+          <div class="radio-group">
+            <label><input type="radio" name="gender" value="female"> 👧 女生</label>
+            <label><input type="radio" name="gender" value="male"> 👦 男生</label>
+            <label><input type="radio" name="gender" value="other"> 🌈 其他</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>联系方式 <span class="required">*</span></label>
+          <input type="text" id="contact" placeholder="手机号 / 微信号 / QQ 都行～" required maxlength="50">
+        </div>
+        <div class="form-group">
+          <label>想说点什么</label>
+          <textarea id="message" placeholder="随便说，比如你在哪个城市、是做什么的、为什么想联系我……" maxlength="500"></textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">💌 发 送 心 动 信 号</button>
+      </form>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>鹏哥的快乐相亲 <span class="heart">♥</span> 2026</p>
+  <p style="font-size:0.78rem;">这个页面是我认真做的，就像我对感情的态度一样。</p>
+  <p style="font-size:0.7rem;margin-top:8px;">非诚勿扰 · 真诚第一</p>
+</footer>
+
+<!-- 成功弹窗 -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-emoji">💌</div>
+    <div class="modal-title">发送成功！</div>
+    <div class="modal-desc">
+      鹏哥已经收到你的信息啦～<br>
+      他会尽快联系你，请保持联系方式畅通！
+    </div>
+    <button class="modal-close" onclick="closeModal()">好 的</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── 爱心飘落 ──
+  (function() {
+    const container = document.getElementById('hearts');
+    const emojis = ['💕','💖','💗','💝','💘','❤️','🌸','✨','💫','🩷'];
+    function createHeart() {
+      const el = document.createElement('span');
+      el.className = 'floating-heart';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.animationDuration = (6 + Math.random() * 10) + 's';
+      el.style.animationDelay = Math.random() * 5 + 's';
+      el.style.fontSize = (1 + Math.random() * 2.5) + 'rem';
+      container.appendChild(el);
+      setTimeout(function(){ el.remove(); }, 16000);
+    }
+    for (var i = 0; i < 12; i++) createHeart();
+    setInterval(createHeart, 2000);
+  })();
+
+  // ── 表单提交 ──
+  var form = document.getElementById('contactForm');
+  var submitBtn = document.getElementById('submitBtn');
+  var modal = document.getElementById('modal');
+  var toast = document.getElementById('toast');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var name = document.getElementById('name').value.trim();
+    var contactVal = document.getElementById('contact').value.trim();
+
+    if (!name) { showToast('👋 至少告诉我你的称呼嘛～'); return; }
+    if (!contactVal) { showToast('📱 留下联系方式我才能找到你呀～'); return; }
+
+    // 收集数据
+    var data = {
+      name: name,
+      age: document.getElementById('age').value || '保密',
+      gender: document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '未填写',
+      contact: contactVal,
+      message: document.getElementById('message').value.trim() || '（什么都没写，但留下了联系方式）',
+      time: new Date().toLocaleString('zh-CN'),
+    };
+
+    // 存到 localStorage
+    var all = JSON.parse(localStorage.getItem('peng_matchmakers') || '[]');
+    all.push(data);
+    localStorage.setItem('peng_matchmakers', JSON.stringify(all));
+
+    // 禁用按钮防重复
+    submitBtn.disabled = true;
+    submitBtn.textContent = '⏳ 发送中...';
+
+    setTimeout(function() {
+      modal.classList.add('show');
+      form.reset();
+      submitBtn.disabled = false;
+      submitBtn.textContent = '💌 发 送 心 动 信 号';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 800);
+  });
+
+  // ── 查看报名数据（在浏览器控制台输入 showData() 即可查看） ──
+  window.showData = function() {
+    var all = JSON.parse(localStorage.getItem('peng_matchmakers') || '[]');
+    console.table(all);
+    console.log('共 ' + all.length + ' 条报名记录');
+    return all;
+  };
+
+  function closeModal() {
+    modal.classList.remove('show');
+    showToast('🎉 太棒了！鹏哥会尽快联系你的～');
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(function(){ toast.classList.remove('show'); }, 3000);
+  }
+
+  // ── 加载动画 ──
+  window.addEventListener('load', function() {
+    var frames = document.querySelectorAll('.photo-frame');
+    for (var i = 0; i < frames.length; i++) {
+      (function(f, idx) {
+        f.style.opacity = '0';
+        f.style.transform = 'translateY(30px)';
+        setTimeout(function() {
+          f.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+          f.style.opacity = '1';
+          f.style.transform = 'translateY(0)';
+        }, 200 + idx * 200);
+      })(frames[i], i);
+    }
+  });
+</script>
+
+</body>
+</html>
