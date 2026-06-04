@@ -841,6 +841,9 @@
   <p>鹏哥的恋爱俱乐部 <span class="heart">♥</span> 2026</p>
   <p style="font-size:0.78rem;">这个页面是我认真做的，就像我对感情的态度一样。</p>
   <p style="font-size:0.7rem;margin-top:8px;">非诚勿扰 · 真诚第一 · 骗子绕道</p>
+  <p style="font-size:0.65rem;margin-top:6px;opacity:0.4;">
+    <a href="javascript:setGitToken()" style="color:inherit;text-decoration:none;">⚙️ 设置同步Token</a>
+  </p>
 </footer>
 
 <!-- 成功弹窗 -->
@@ -879,11 +882,14 @@
     setInterval(createHeart, 2000);
   })();
 
-  // ── ImgBB 上传配置 ──
+  // ── 配置 ──
   var IMGBB_KEY = '5bf51f062057f3e6222f198cbdd1450f';
   var IMGBB_API = 'https://api.imgbb.com/1/upload';
+  var PHOTOS_JSON_URL = 'https://raw.githubusercontent.com/hw004015/-/main/photos.json';
+  var GITHUB_API_URL = 'https://api.github.com/repos/hw004015/-/contents/photos.json';
+  var GIT_TOKEN = localStorage.getItem('git_token') || '';
 
-  // ── 照片上传（→ 本地预览 + ImgBB，所有人都能看到） ──
+  // ── 照片上传 → ImgBB + GitHub同步 ──
   function handlePhotoUpload(input, imgId, storageKey) {
     if (!input.files || !input.files[0]) return;
     var file = input.files[0];
@@ -892,10 +898,9 @@
       input.value = '';
       return;
     }
-
     var img = document.getElementById(imgId);
 
-    // 1. 先本地预览
+    // 预览
     var reader = new FileReader();
     reader.onload = function(e) {
       img.src = e.target.result;
@@ -905,66 +910,135 @@
     };
     reader.readAsDataURL(file);
 
-    // 2. 上传到 ImgBB
-    showToast('📤 正在上传到服务器...');
+    // 上传 ImgBB
+    showToast('📤 正在上传...');
     var r2 = new FileReader();
     r2.onload = function(e) {
       var base64 = e.target.result.split(',')[1];
-      var formData = new FormData();
-      formData.append('key', IMGBB_KEY);
-      formData.append('image', base64);
+      var fd = new FormData();
+      fd.append('key', IMGBB_KEY);
+      fd.append('image', base64);
 
-      fetch(IMGBB_API, { method: 'POST', body: formData })
-        .then(function(res) { return res.json(); })
+      fetch(IMGBB_API, { method: 'POST', body: fd })
+        .then(function(r) { return r.json(); })
         .then(function(data) {
-          if (data.success) {
-            var url = data.data.url;
-            img.src = url;
-            // 保存 ImgBB URL 到 localStorage，下次打开还能看到
-            var urls = JSON.parse(localStorage.getItem('imgbb_urls') || '{}');
-            urls[storageKey] = url;
-            localStorage.setItem('imgbb_urls', JSON.stringify(urls));
-            showToast('✅ 上传成功！所有人都能看到 🎉');
-          } else {
-            throw new Error('上传失败');
-          }
+          if (!data.success) throw new Error('ImgBB上传失败');
+          var url = data.data.url;
+          img.src = url;
+          // 保存本地
+          var localUrls = JSON.parse(localStorage.getItem('photo_urls') || '{}');
+          localUrls[storageKey] = url;
+          localStorage.setItem('photo_urls', JSON.stringify(localUrls));
+          showToast('✅ 上传成功！正在同步...');
+          // 同步到 GitHub
+          syncToGitHub(storageKey, url);
         })
         .catch(function(err) {
-          console.error('Upload error:', err);
-          // 上传失败，但本地预览仍然有效
-          localStorage.setItem(storageKey + '_local', img.src);
-          showToast('⚠️ 上传失败，但照片已本地保存');
+          console.error(err);
+          showToast('⚠️ 上传失败: ' + (err.message || '网络错误'));
         });
     };
     r2.readAsDataURL(file);
     input.value = '';
   }
 
-  // ── 页面加载时恢复照片（优先 ImgBB，其次本地） ──
-  (function() {
-    var urls = JSON.parse(localStorage.getItem('imgbb_urls') || '{}');
-    for (var i = 0; i < 5; i++) {
-      var key = 'photo' + i;
-      var img = document.getElementById(key);
-      var url = urls[key];
-      if (url) {
-        // 有 ImgBB 链接，直接加载
-        img.src = url;
-        img.style.display = '';
-        var ov = img.parentElement.querySelector('.upload-overlay');
-        if (ov) ov.style.display = 'none';
-      } else {
-        // 尝试本地
-        var local = localStorage.getItem(key + '_local') || localStorage.getItem(key);
-        if (local) {
-          img.src = local;
-          img.style.display = '';
-          var ov2 = img.parentElement.querySelector('.upload-overlay');
-          if (ov2) ov2.style.display = 'none';
-        }
-      }
+  // ── 同步到 GitHub photos.json ──
+  function syncToGitHub(slotKey, newUrl) {
+    if (!GIT_TOKEN) {
+      showToast('✅ 上传成功！（设置Token后自动同步给所有人）');
+      return;
     }
-  })();
+    // 先读取当前 photos.json
+    fetch(PHOTOS_JSON_URL + '?t=' + Date.now())
+      .then(function(r) { return r.json(); })
+      .catch(function() { return {}; })
+      .then(function(current) {
+        current[slotKey] = newUrl;
+        var content = JSON.stringify(current, null, 2);
+        var base64Content = btoa(unescape(encodeURIComponent(content)));
+
+        // 获取 SHA
+        return fetch(GITHUB_API_URL, {
+          headers: { 'Authorization': 'Bearer ' + GIT_TOKEN, 'Accept': 'application/vnd.github+json' }
+        }).then(function(r) {
+          if (r.ok) return r.json().then(function(d) { return d.sha; });
+          return null;
+        }).catch(function() { return null; }).then(function(sha) {
+          var body = { message: 'Update ' + slotKey, content: base64Content };
+          if (sha) body.sha = sha;
+          return fetch(GITHUB_API_URL, {
+            method: 'PUT',
+            headers: {
+              'Authorization': 'Bearer ' + GIT_TOKEN,
+              'Accept': 'application/vnd.github+json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+          });
+        });
+      })
+      .then(function(r) {
+        if (r && r.ok) {
+          showToast('✅ 同步成功！所有人都能看到 🎉');
+        } else if (r) {
+          showToast('⚠️ 同步失败，照片仅本地可见');
+        }
+      })
+      .catch(function() {
+        showToast('⚠️ 同步失败，照片仅本地可见');
+      });
+  }
+
+  // ── 页面加载：优先从 GitHub photos.json 读取，其次本地 ──
+  function loadPhotos() {
+    fetch(PHOTOS_JSON_URL + '?t=' + Date.now())
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        for (var i = 0; i < 5; i++) {
+          var key = 'photo' + i;
+          var url = data[key];
+          if (url) {
+            var img = document.getElementById(key);
+            img.src = url;
+            img.style.display = '';
+            var ov = img.parentElement.querySelector('.upload-overlay');
+            if (ov) ov.style.display = 'none';
+          }
+        }
+      })
+      .catch(function() {
+        // GitHub 读不到，读本地
+        var localUrls = JSON.parse(localStorage.getItem('photo_urls') || '{}');
+        for (var i = 0; i < 5; i++) {
+          var key = 'photo' + i;
+          var url = localUrls[key] || localStorage.getItem(key);
+          if (url) {
+            var img = document.getElementById(key);
+            img.src = url;
+            img.style.display = '';
+            var ov = img.parentElement.querySelector('.upload-overlay');
+            if (ov) ov.style.display = 'none';
+          }
+        }
+      });
+  }
+
+  loadPhotos();
+
+  // ── Token 设置 ──
+  window.setGitToken = function() {
+    var t = prompt('请输入 GitHub Token（用于同步照片）：');
+    if (t && t.trim()) {
+      localStorage.setItem('git_token', t.trim());
+      GIT_TOKEN = t.trim();
+      showToast('✅ Token 已保存！现在上传照片会同步给所有人');
+    }
+  };
+  window.clearGitToken = function() {
+    localStorage.removeItem('git_token');
+    GIT_TOKEN = '';
+    showToast('🗑️ Token 已清除');
+  };
 
   // ── 投票功能 ──
   var VOTE_KEY = 'peng_club_votes';
