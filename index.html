@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="丽江白华包租公 - 家里只剩下钱了，认真寻找另一半。非诚勿扰。">
-<meta name="keywords" content="相亲,丽江,白华,包租公,交友,找对象,真诚交友,非诚勿扰">
-<meta property="og:title" content="丽江白华包租公 | 非诚勿扰">
-<meta property="og:description" content="丽江白华村有房有地，家里啥都不多就是钱多。期待遇见真诚的你。">
+<meta name="description" content="鹏哥的恋爱俱乐部 - 爱运动、爱喝酒、爱潮流，认真寻找另一半。非诚勿扰。">
+<meta name="keywords" content="相亲,鹏哥,恋爱,交友,找对象,投票,真诚交友,非诚勿扰">
+<meta property="og:title" content="鹏哥的恋爱俱乐部 | 非诚勿扰">
+<meta property="og:description" content="爱运动、爱喝酒、爱潮流，期待遇见真诚的你。">
 <meta property="og:type" content="website">
-<title>丽江白华包租公 | 非诚勿扰</title>
+<title>鹏哥的恋爱俱乐部 | 非诚勿扰</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
 
   :root {
-    --gold: #D4A843;
-    --gold-light: #FFF8E7;
+    --pink: #FF6B8A;
+    --pink-light: #FFF0F3;
+    --gold: #F5A623;
     --dark: #2D1B2E;
     --text: #4A3142;
     --white: #FFFFFF;
-    --bg: #FFFDF7;
-    --card-shadow: 0 8px 30px rgba(0,0,0,0.06);
-    --accent: #C8963E;
+    --bg: #FFFAFB;
+    --card-shadow: 0 8px 30px rgba(0,0,0,0.04);
   }
 
   body {
@@ -31,7 +31,7 @@
     overflow-x: hidden;
   }
 
-  /* ── 金粉飘落动画 ── */
+  /* ── 爱心飘落动画 ── */
   .hearts-container {
     position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
@@ -55,21 +55,21 @@
     background: rgba(255,255,255,0.94);
     backdrop-filter: blur(12px);
     z-index: 100;
-    border-bottom: 1px solid #f0e4cc;
+    border-bottom: 1px solid #ffe0e8;
   }
   .nav-inner {
     max-width: 900px; margin: 0 auto;
     padding: 14px 24px;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .nav-logo { font-size: 1.2rem; font-weight: 900; color: var(--accent); letter-spacing: 2px; }
+  .nav-logo { font-size: 1.2rem; font-weight: 900; color: var(--pink); letter-spacing: 2px; }
   .nav-links { display: flex; gap: 24px; list-style: none; }
   .nav-links a {
     text-decoration: none; color: var(--text);
     font-size: 0.9rem; font-weight: 600;
     transition: color 0.3s;
   }
-  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover { color: var(--pink); }
 
   /* ── 主体 ── */
   .main-content {
@@ -85,14 +85,13 @@
   }
   .hero-badge {
     display: inline-block;
-    background: var(--gold-light);
-    color: var(--accent);
+    background: var(--pink-light);
+    color: var(--pink);
     font-weight: 700; font-size: 0.9rem;
     padding: 8px 22px;
     border-radius: 50px;
     letter-spacing: 3px;
     margin-bottom: 24px;
-    border: 1px solid #e8d5a3;
   }
   .hero h1 {
     font-size: 3rem;
@@ -103,7 +102,7 @@
     margin-bottom: 4px;
   }
   .hero h1 .highlight {
-    background: linear-gradient(135deg, #D4A843, #C8963E, #B8860B);
+    background: linear-gradient(135deg, var(--pink), #FF4080);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -127,13 +126,15 @@
   }
   .photos-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-    max-width: 580px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 650px;
     margin: 0 auto;
   }
+  @media (max-width: 640px) {
+    .photos-grid { grid-template-columns: repeat(2, 1fr); }
+  }
   @media (max-width: 580px) {
-    .photos-grid { grid-template-columns: 1fr; max-width: 280px; }
     .hero h1 { font-size: 2.2rem; }
     .nav-links { gap: 14px; }
     .nav-links a { font-size: 0.8rem; }
@@ -143,22 +144,25 @@
     display: inline-block;
     background: var(--dark);
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     letter-spacing: 2px;
-    padding: 5px 16px;
+    padding: 4px 12px;
     border-radius: 20px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
-  .photo-label.house { background: #C8963E; }
-  .photo-label.life { background: #8B7355; }
+  .photo-label.s1 { background: #FF6B8A; }
+  .photo-label.s2 { background: #FFB347; }
+  .photo-label.s3 { background: #4ECDC4; }
+  .photo-label.s4 { background: #A78BFA; }
+  .photo-label.s5 { background: #F7DC6F; color: #333; }
   .photo-frame {
     width: 100%;
     aspect-ratio: 3/4;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
-    border: 4px solid white;
-    box-shadow: 0 10px 36px rgba(180,140,60,0.15);
-    background: linear-gradient(135deg, #fef9ee, #fdf5e6);
+    border: 3px solid white;
+    box-shadow: 0 8px 24px rgba(255,107,138,0.12);
+    background: linear-gradient(135deg, #ffe8ed, #fff5f7);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -168,7 +172,7 @@
   }
   .photo-frame:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 48px rgba(180,140,60,0.3);
+    box-shadow: 0 16px 40px rgba(255,107,138,0.28);
   }
   .photo-frame:hover .upload-overlay {
     opacity: 1;
@@ -180,11 +184,11 @@
     text-align: center;
     color: #ccc;
   }
-  .photo-placeholder .icon { font-size: 3.5rem; }
-  .photo-placeholder .hint { font-size: 0.85rem; color: #bbb; margin-top: 8px; }
+  .photo-placeholder .icon { font-size: 2.5rem; }
+  .photo-placeholder .hint { font-size: 0.75rem; color: #bbb; margin-top: 6px; }
   .photo-caption {
-    margin-top: 10px;
-    font-size: 0.85rem;
+    margin-top: 6px;
+    font-size: 0.78rem;
     color: #aaa;
     font-style: italic;
   }
@@ -206,8 +210,8 @@
     font-weight: 700;
     letter-spacing: 2px;
   }
-  .upload-overlay .upload-icon { font-size: 2.5rem; margin-bottom: 8px; }
-  .upload-overlay .upload-text { font-size: 0.9rem; }
+  .upload-overlay .upload-icon { font-size: 2rem; margin-bottom: 6px; }
+  .upload-overlay .upload-text { font-size: 0.8rem; }
 
   /* ── 分区标题 ── */
   .section-title {
@@ -218,7 +222,7 @@
     margin: 48px 0 24px;
     letter-spacing: 2px;
   }
-  .section-title span { color: var(--accent); }
+  .section-title span { color: var(--pink); }
 
   /* ── 关于我 ── */
   .about-card {
@@ -226,7 +230,7 @@
     border-radius: 20px;
     padding: 36px 32px;
     box-shadow: var(--card-shadow);
-    border: 1px solid #f0e4cc;
+    border: 1px solid #f5e8ec;
   }
   .about-card .tag-row {
     display: flex;
@@ -235,14 +239,13 @@
     margin-bottom: 22px;
   }
   .tag {
-    background: var(--gold-light);
-    color: var(--accent);
+    background: var(--pink-light);
+    color: var(--pink);
     font-size: 0.82rem;
     font-weight: 700;
     padding: 5px 14px;
     border-radius: 20px;
     letter-spacing: 1px;
-    border: 1px solid #e8d5a3;
   }
   .about-card p {
     font-size: 1.02rem;
@@ -252,7 +255,7 @@
   .about-card .signature {
     text-align: right;
     font-weight: 700;
-    color: var(--accent);
+    color: var(--pink);
     margin-top: 14px;
     font-size: 1.05rem;
   }
@@ -268,7 +271,7 @@
     border-radius: 16px;
     padding: 26px 16px;
     text-align: center;
-    border: 1px solid #f0e4cc;
+    border: 1px solid #f5e8ec;
     transition: transform 0.3s, box-shadow 0.3s;
   }
   .daily-item:hover {
@@ -281,10 +284,10 @@
 
   /* ── 我想找 ── */
   .looking-card {
-    background: linear-gradient(135deg, #fffdf5, #fff);
+    background: linear-gradient(135deg, #fff5f7, #fff);
     border-radius: 20px;
     padding: 34px;
-    border: 2px dashed #e8d5a3;
+    border: 2px dashed #ffe0e8;
     text-align: center;
   }
   .looking-card .big-heart {
@@ -311,9 +314,86 @@
   .looking-list li {
     padding: 9px 0;
     font-size: 1rem;
-    border-bottom: 1px dotted #e8d5a3;
+    border-bottom: 1px dotted #ffe0e8;
   }
-  .looking-list li::before { content: '💛 '; }
+  .looking-list li::before { content: '💝 '; }
+
+  /* ── 投票区 ── */
+  .vote-section {
+    background: white;
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid #f5e8ec;
+  }
+  .vote-question {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+  .vote-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .vote-option {
+    position: relative;
+    overflow: hidden;
+  }
+  .vote-option button {
+    width: 100%;
+    padding: 14px 20px;
+    background: #FFF0F3;
+    border: 2px solid #ffe0e8;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+    color: var(--text);
+    font-family: inherit;
+    position: relative;
+    z-index: 1;
+  }
+  .vote-option button:hover {
+    background: #ffe0e8;
+    border-color: var(--pink);
+    transform: translateX(4px);
+  }
+  .vote-option button.voted {
+    background: var(--pink-light);
+    border-color: var(--pink);
+  }
+  .vote-bar-bg {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    background: rgba(255,107,138,0.12);
+    border-radius: 14px;
+    transition: width 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 0;
+  }
+  .vote-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 4px;
+    padding: 0 4px;
+  }
+  .vote-total {
+    text-align: center;
+    margin-top: 16px;
+    color: #bbb;
+    font-size: 0.85rem;
+  }
+  .vote-section.voted .vote-option button {
+    pointer-events: none;
+  }
 
   /* ── 联系表单 ── */
   .contact-section {
@@ -321,7 +401,7 @@
     border-radius: 20px;
     padding: 36px 32px;
     box-shadow: var(--card-shadow);
-    border: 1px solid #f0e4cc;
+    border: 1px solid #f5e8ec;
     margin-top: 8px;
   }
   .form-group { margin-bottom: 18px; }
@@ -332,41 +412,41 @@
     color: var(--dark);
     letter-spacing: 1px;
   }
-  .form-group label .required { color: #D4A843; }
+  .form-group label .required { color: var(--pink); }
   .form-group input,
   .form-group textarea,
   .form-group select {
     width: 100%;
     padding: 13px 16px;
-    border: 2px solid #f0e4cc;
+    border: 2px solid #f0e0e5;
     border-radius: 12px;
     font-size: 0.98rem;
     font-family: inherit;
     transition: border-color 0.3s, box-shadow 0.3s;
-    background: #FFFDF7;
+    background: #FFFAFB;
   }
   .form-group input:focus,
   .form-group textarea:focus,
   .form-group select:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(200,150,62,0.08);
+    border-color: var(--pink);
+    box-shadow: 0 0 0 4px rgba(255,107,138,0.08);
   }
   .form-group textarea { resize: vertical; min-height: 96px; }
 
   /* ── 照片上传（表单中） ── */
   .photo-upload-area {
-    border: 2px dashed #e8d5a3;
+    border: 2px dashed #ffe0e8;
     border-radius: 14px;
     padding: 20px;
     text-align: center;
     cursor: pointer;
     transition: border-color 0.3s, background 0.3s;
-    background: #FFFDF7;
+    background: #FFFAFB;
   }
   .photo-upload-area:hover {
-    border-color: var(--accent);
-    background: var(--gold-light);
+    border-color: var(--pink);
+    background: var(--pink-light);
   }
   .photo-upload-area .upload-hint {
     color: #bbb;
@@ -388,7 +468,7 @@
     width: 80px; height: 80px;
     border-radius: 10px;
     overflow: hidden;
-    border: 2px solid #f0e4cc;
+    border: 2px solid #f0e0e5;
   }
   .photo-preview .preview-item img {
     width: 100%; height: 100%; object-fit: cover;
@@ -415,12 +495,12 @@
     font-weight: 500; cursor: pointer; font-size: 0.93rem;
   }
   .radio-group input[type="radio"] {
-    width: auto; accent-color: var(--accent);
+    width: auto; accent-color: var(--pink);
   }
   .submit-btn {
     width: 100%;
     padding: 15px;
-    background: linear-gradient(135deg, #D4A843, #C8963E);
+    background: linear-gradient(135deg, var(--pink), #FF4080);
     color: white;
     border: none;
     border-radius: 14px;
@@ -432,7 +512,7 @@
   }
   .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(200,150,62,0.35);
+    box-shadow: 0 10px 28px rgba(255,107,138,0.32);
   }
   .submit-btn:active { transform: scale(0.97); }
   .submit-btn:disabled {
@@ -480,7 +560,7 @@
   .modal-desc { color: #999; margin-bottom: 18px; line-height: 1.7; }
   .modal-close {
     padding: 11px 36px;
-    background: var(--accent);
+    background: var(--pink);
     color: white;
     border: none;
     border-radius: 30px;
@@ -519,20 +599,21 @@
     letter-spacing: 2px;
     position: relative; z-index: 1;
   }
-  footer .heart { color: #D4A843; }
+  footer .heart { color: var(--pink); }
 </style>
 </head>
 <body>
 
-<!-- 飘落金粉 -->
+<!-- 飘落爱心 -->
 <div class="hearts-container" id="hearts"></div>
 
 <!-- 导航 -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">🏠 丽江白华包租公</div>
+    <div class="nav-logo">💘 鹏哥的恋爱俱乐部</div>
     <ul class="nav-links">
       <li><a href="#about">关于我</a></li>
+      <li><a href="#vote">投票</a></li>
       <li><a href="#looking">理想型</a></li>
       <li><a href="#contact">联系我</a></li>
     </ul>
@@ -544,63 +625,88 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-badge">💰 家里只剩下钱了 · 真诚征友</div>
-    <h1>丽江白华<span class="highlight">包租公</span></h1>
-    <p class="hero-subtitle">BAIHUA LANDLORD · LIJIANG</p>
-    <p class="hero-tagline">—— 家里什么都不多，就是房子多、钱多。想认真谈个恋爱。</p>
+    <div class="hero-badge">🔔 非诚勿扰 · 真诚征友</div>
+    <h1>鹏哥的<span class="highlight">恋爱俱乐部</span></h1>
+    <p class="hero-subtitle">PENG'S LOVE CLUB</p>
+    <p class="hero-tagline">—— 爱运动、爱喝酒、爱潮流，认真谈个恋爱。</p>
   </section>
 
-  <!-- 照片区 —— 点击照片即可上传替换 -->
+  <!-- 5张帅照区 —— 点击照片即可上传替换 -->
   <section class="photos-section">
     <div class="photos-grid">
       <div class="photo-card">
-        <div class="photo-label house">🏠 我的豪宅</div>
-        <div class="photo-frame" id="photoFrame1" onclick="document.getElementById('photoInput1').click()">
-          <div class="upload-overlay">
-            <span class="upload-icon">📷</span>
-            <span class="upload-text">点击上传照片</span>
-          </div>
-          <img id="photo1" src="kid.jpeg" alt="我的豪宅"
-               onerror="this.style.display='none';this.parentElement.querySelector('.upload-overlay').style.display='flex';">
+        <div class="photo-label s1">📷 帅照一</div>
+        <div class="photo-frame" id="photoFrame0" onclick="document.getElementById('photoInput0').click()">
+          <div class="upload-overlay"><span class="upload-icon">📷</span><span class="upload-text">点击上传</span></div>
+          <img id="photo0" src="" alt="帅照一" style="display:none"
+               onerror="this.style.display='none';var o=this.parentElement.querySelector('.upload-overlay');if(o)o.style.display='flex';">
         </div>
-        <p class="photo-caption">随便一栋，收租专用</p>
+        <p class="photo-caption">这就是我</p>
       </div>
       <div class="photo-card">
-        <div class="photo-label life">🧑 25岁的我</div>
-        <div class="photo-frame" id="photoFrame2" onclick="document.getElementById('photoInput2').click()">
-          <div class="upload-overlay">
-            <span class="upload-icon">📷</span>
-            <span class="upload-text">点击上传照片</span>
-          </div>
-          <img id="photo2" src="now.jpeg" alt="日常的我"
-               onerror="this.style.display='none';this.parentElement.querySelector('.upload-overlay').style.display='flex';">
+        <div class="photo-label s2">📷 帅照二</div>
+        <div class="photo-frame" id="photoFrame1" onclick="document.getElementById('photoInput1').click()">
+          <div class="upload-overlay"><span class="upload-icon">📷</span><span class="upload-text">点击上传</span></div>
+          <img id="photo1" src="" alt="帅照二" style="display:none"
+               onerror="this.style.display='none';var o=this.parentElement.querySelector('.upload-overlay');if(o)o.style.display='flex';">
         </div>
-        <p class="photo-caption">除了收租，就是享受生活</p>
+        <p class="photo-caption">爱运动的我</p>
+      </div>
+      <div class="photo-card">
+        <div class="photo-label s3">📷 帅照三</div>
+        <div class="photo-frame" id="photoFrame2" onclick="document.getElementById('photoInput2').click()">
+          <div class="upload-overlay"><span class="upload-icon">📷</span><span class="upload-text">点击上传</span></div>
+          <img id="photo2" src="" alt="帅照三" style="display:none"
+               onerror="this.style.display='none';var o=this.parentElement.querySelector('.upload-overlay');if(o)o.style.display='flex';">
+        </div>
+        <p class="photo-caption">喝酒的时候最帅</p>
+      </div>
+      <div class="photo-card">
+        <div class="photo-label s4">📷 帅照四</div>
+        <div class="photo-frame" id="photoFrame3" onclick="document.getElementById('photoInput3').click()">
+          <div class="upload-overlay"><span class="upload-icon">📷</span><span class="upload-text">点击上传</span></div>
+          <img id="photo3" src="" alt="帅照四" style="display:none"
+               onerror="this.style.display='none';var o=this.parentElement.querySelector('.upload-overlay');if(o)o.style.display='flex';">
+        </div>
+        <p class="photo-caption">潮流穿搭</p>
+      </div>
+      <div class="photo-card">
+        <div class="photo-label s5">📷 帅照五</div>
+        <div class="photo-frame" id="photoFrame4" onclick="document.getElementById('photoInput4').click()">
+          <div class="upload-overlay"><span class="upload-icon">📷</span><span class="upload-text">点击上传</span></div>
+          <img id="photo4" src="" alt="帅照五" style="display:none"
+               onerror="this.style.display='none';var o=this.parentElement.querySelector('.upload-overlay');if(o)o.style.display='flex';">
+        </div>
+        <p class="photo-caption">等你来了解</p>
       </div>
     </div>
     <!-- 隐藏的文件选择器 -->
+    <input type="file" id="photoInput0" accept="image/*" style="display:none" onchange="handlePhotoUpload(this, 'photo0', 'photo0')">
     <input type="file" id="photoInput1" accept="image/*" style="display:none" onchange="handlePhotoUpload(this, 'photo1', 'photo1')">
     <input type="file" id="photoInput2" accept="image/*" style="display:none" onchange="handlePhotoUpload(this, 'photo2', 'photo2')">
+    <input type="file" id="photoInput3" accept="image/*" style="display:none" onchange="handlePhotoUpload(this, 'photo3', 'photo3')">
+    <input type="file" id="photoInput4" accept="image/*" style="display:none" onchange="handlePhotoUpload(this, 'photo4', 'photo4')">
   </section>
 
   <!-- 关于我 -->
   <section id="about">
-    <h2 class="section-title">📖 关于<span>本包租公</span></h2>
+    <h2 class="section-title">📖 关于<span>鹏哥</span></h2>
     <div class="about-card">
       <div class="tag-row">
-        <span class="tag">🏠 丽江白华有房</span>
-        <span class="tag">💰 家里有矿有地</span>
-        <span class="tag">🏘️ 十几套收租中</span>
-        <span class="tag">🚗 豪车随便开</span>
-        <span class="tag">✈️ 说走就走的旅行</span>
-        <span class="tag">🍷 藏酒比朋友多</span>
+        <span class="tag">🏠 丽江有房</span>
+        <span class="tag">💰 经济自由</span>
+        <span class="tag">🏃 喜欢运动</span>
+        <span class="tag">🍺 喜欢喝酒</span>
+        <span class="tag">🔥 很潮流</span>
+        <span class="tag">✈️ 爱旅游</span>
+        <span class="tag">🎬 自媒体人</span>
       </div>
-      <p>你好呀，我就是传说中的丽江白华包租公，今年25岁，01年属蛇🐍。家里啥都不多，就是房子多，钱也多。</p>
-      <p>每天的生活很简单——睡到自然醒，开车兜兜风，到各个房子转转看看租客们好不好，月底收收租。日子过得轻松，但总觉得少了点什么。</p>
-      <p>我不是那种暴发户式的有钱人，我就是命好，祖上留了几块地、几栋楼。但钱这个东西吧，花不完也挺没意思的。想找个人一起花。</p>
-      <p>朋友都说我这个人挺随和的，没有富二代的臭毛病。可能是因为我知道，钱买不到的东西才最珍贵——比如一个真心实意的人。</p>
-      <p>如果你愿意，我想把丽江的阳光、白华的院子、还有我的故事，都分享给你。</p>
-      <p class="signature">—— 丽江白华包租公，一个除了钱啥都没有的人。</p>
+      <p>你好呀，我叫鹏哥，今年25岁，01年属蛇🐍。丽江白华有房有地，经济上没啥压力，就想认真找个对象。</p>
+      <p>我是一个闲不住的人，每周雷打不动去健身，身材管理这一块拿捏得死死的。平时也喜欢跟朋友们喝两杯，白酒洋酒都行，但不会喝到断片儿那种——毕竟第二天还得拍视频呢。</p>
+      <p>穿搭这块我很有自己的风格，朋友都说我穿衣服好看，走在街上回头率不低。不是那种花里胡哨的，是干净利落有品位的那种帅。</p>
+      <p>自媒体是我的事业也是爱好，时间自由，收入稳定。最大的缺点就是——圈子太小，全是同行和甲方，想认识个真心的姑娘太难了。</p>
+      <p>如果你愿意，我想把镜头外的故事，讲给你听。</p>
+      <p class="signature">—— 鹏哥，一个爱运动爱喝酒爱潮流的恋爱俱乐部部长。</p>
     </div>
   </section>
 
@@ -608,38 +714,74 @@
   <h2 class="section-title">📅 和我在<span>一起</span>的日常</h2>
   <div class="daily-grid">
     <div class="daily-item">
-      <div class="icon">💰</div>
-      <div class="label">收房租</div>
-      <div class="desc">每个月最忙的一天，数钱数到手抽筋</div>
+      <div class="icon">🏋️</div>
+      <div class="label">健身运动</div>
+      <div class="desc">每周必练，身材管理从不松懈</div>
     </div>
     <div class="daily-item">
-      <div class="icon">🏠</div>
-      <div class="label">巡视房产</div>
-      <div class="desc">开车逛逛自家房子，看看哪该修了</div>
+      <div class="icon">🍺</div>
+      <div class="label">小酌一杯</div>
+      <div class="desc">好酒好菜好聊天，就差一个你</div>
     </div>
     <div class="daily-item">
-      <div class="icon">✈️</div>
-      <div class="label">到处旅游</div>
-      <div class="desc">想走就走，就差一个帮我拍照的人</div>
+      <div class="icon">👔</div>
+      <div class="label">穿搭造型</div>
+      <div class="desc">出门必须帅，潮流这块没输过</div>
     </div>
     <div class="daily-item">
-      <div class="icon">🍷</div>
-      <div class="label">品酒喝茶</div>
-      <div class="desc">收藏了不少好酒，一个人喝没意思</div>
+      <div class="icon">🎬</div>
+      <div class="label">拍视频</div>
+      <div class="desc">你可以在旁边笑我NG到崩溃</div>
     </div>
   </div>
+
+  <!-- 投票区 -->
+  <section id="vote">
+    <h2 class="section-title">🗳️ 来给<span>鹏哥</span>投一票</h2>
+    <div class="vote-section" id="voteSection">
+      <p class="vote-question">👇 你觉得鹏哥最吸引你的是什么？</p>
+      <div class="vote-options" id="voteOptions">
+        <div class="vote-option" data-id="0">
+          <div class="vote-bar-bg" id="voteBar0"></div>
+          <button onclick="castVote(0)">😎 长得帅，颜值在线</button>
+          <div class="vote-info"><span class="vote-label"></span><span class="vote-pct" id="votePct0"></span></div>
+        </div>
+        <div class="vote-option" data-id="1">
+          <div class="vote-bar-bg" id="voteBar1"></div>
+          <button onclick="castVote(1)">💰 经济自由，有房有底气</button>
+          <div class="vote-info"><span class="vote-label"></span><span class="vote-pct" id="votePct1"></span></div>
+        </div>
+        <div class="vote-option" data-id="2">
+          <div class="vote-bar-bg" id="voteBar2"></div>
+          <button onclick="castVote(2)">🏃 爱运动，身材好</button>
+          <div class="vote-info"><span class="vote-label"></span><span class="vote-pct" id="votePct2"></span></div>
+        </div>
+        <div class="vote-option" data-id="3">
+          <div class="vote-bar-bg" id="voteBar3"></div>
+          <button onclick="castVote(3)">🔥 潮流有品位，穿搭好看</button>
+          <div class="vote-info"><span class="vote-label"></span><span class="vote-pct" id="votePct3"></span></div>
+        </div>
+        <div class="vote-option" data-id="4">
+          <div class="vote-bar-bg" id="voteBar4"></div>
+          <button onclick="castVote(4)">🍺 性格好，能喝会聊</button>
+          <div class="vote-info"><span class="vote-label"></span><span class="vote-pct" id="votePct4"></span></div>
+        </div>
+      </div>
+      <p class="vote-total" id="voteTotal"></p>
+    </div>
+  </section>
 
   <!-- 理想型 -->
   <section id="looking">
     <h2 class="section-title">💘 我想找<span>这样的你</span></h2>
     <div class="looking-card">
-      <div class="big-heart">💛</div>
-      <p class="sub-text">钱我有的是，缺的是一个真心的你。</p>
+      <div class="big-heart">❤️</div>
+      <p class="sub-text">没有完美的人，只有合不合适。</p>
       <ul class="looking-list">
-        <li>年龄不是问题，聊得来才是关键</li>
-        <li>不图我的钱，图我这个人就行</li>
-        <li>性格真诚，不做作，是啥样就啥样</li>
-        <li>能陪我到处走走，看看这个世界</li>
+        <li>年龄差不多，聊得来比什么都重要</li>
+        <li>性格真诚，不用端着，做自己就好</li>
+        <li>能接受我偶尔因为剪片而回消息慢</li>
+        <li>最好也爱运动爱生活，一起变更好</li>
         <li>坐标不限，丽江有房，随时可以来</li>
       </ul>
     </div>
@@ -650,7 +792,7 @@
     <h2 class="section-title">📬 勇敢<span>联系我</span></h2>
     <div class="contact-section">
       <p style="text-align:center;color:#aaa;margin-bottom:22px;">
-        不是来应聘租客的哈，是来找对象的。<br>我会认真回复每一条信息 💛
+        把联系方式留下，迈出第一步。<br>我会认真回复每一条信息 💌
       </p>
       <form id="contactForm">
         <div class="form-group">
@@ -686,9 +828,9 @@
         </div>
         <div class="form-group">
           <label>想说点什么</label>
-          <textarea id="message" placeholder="随便说，比如你在哪个城市、做什么的、为什么想联系我……" maxlength="500"></textarea>
+          <textarea id="message" placeholder="随便说，比如你在哪个城市、是做什么的、为什么想联系我……" maxlength="500"></textarea>
         </div>
-        <button type="submit" class="submit-btn" id="submitBtn">💛 发 送 心 动 信 号</button>
+        <button type="submit" class="submit-btn" id="submitBtn">💌 发 送 心 动 信 号</button>
       </form>
     </div>
   </section>
@@ -696,7 +838,7 @@
 </div>
 
 <footer>
-  <p>丽江白华包租公 <span class="heart">♥</span> 2026</p>
+  <p>鹏哥的恋爱俱乐部 <span class="heart">♥</span> 2026</p>
   <p style="font-size:0.78rem;">这个页面是我认真做的，就像我对感情的态度一样。</p>
   <p style="font-size:0.7rem;margin-top:8px;">非诚勿扰 · 真诚第一 · 骗子绕道</p>
 </footer>
@@ -704,10 +846,10 @@
 <!-- 成功弹窗 -->
 <div class="modal-overlay" id="modal">
   <div class="modal-box">
-    <div class="modal-emoji">💛</div>
+    <div class="modal-emoji">💌</div>
     <div class="modal-title">发送成功！</div>
     <div class="modal-desc">
-      包租公已经收到你的信息啦～<br>
+      鹏哥已经收到你的信息啦～<br>
       他会尽快联系你，请保持联系方式畅通！
     </div>
     <button class="modal-close" onclick="closeModal()">好 的</button>
@@ -718,10 +860,10 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  // ── 金粉飘落 ──
+  // ── 爱心飘落 ──
   (function() {
     const container = document.getElementById('hearts');
-    const emojis = ['✨','💰','🏠','💛','🌟','✨','💫','🏘️','🍷','💎'];
+    const emojis = ['💕','💖','💗','💝','💘','❤️','🌸','✨','💫','🩷'];
     function createHeart() {
       const el = document.createElement('span');
       el.className = 'floating-heart';
@@ -741,7 +883,6 @@
   function handlePhotoUpload(input, imgId, storageKey) {
     if (!input.files || !input.files[0]) return;
     var file = input.files[0];
-    // 检查文件大小（最大10MB）
     if (file.size > 10 * 1024 * 1024) {
       showToast('📁 照片太大了，请选择10MB以下的图片～');
       input.value = '';
@@ -750,44 +891,97 @@
     var reader = new FileReader();
     reader.onload = function(e) {
       var dataUrl = e.target.result;
-      // 显示在页面上
       var img = document.getElementById(imgId);
       img.src = dataUrl;
       img.style.display = '';
-      // 隐藏上传覆盖层
       var overlay = img.parentElement.querySelector('.upload-overlay');
       if (overlay) overlay.style.display = 'none';
-      // 存到 localStorage
       localStorage.setItem(storageKey, dataUrl);
-      showToast('✅ 照片上传成功！已自动保存～');
+      showToast('✅ 帅照上传成功！已自动保存～');
     };
     reader.readAsDataURL(file);
-    // 重置 input 以便可以重复选同一个文件
     input.value = '';
   }
 
   // ── 页面加载时恢复已保存的照片 ──
   (function() {
-    var saved1 = localStorage.getItem('photo1');
-    if (saved1) {
-      var img1 = document.getElementById('photo1');
-      img1.src = saved1;
-      img1.style.display = '';
-      var overlay1 = img1.parentElement.querySelector('.upload-overlay');
-      if (overlay1) overlay1.style.display = 'none';
-    }
-    var saved2 = localStorage.getItem('photo2');
-    if (saved2) {
-      var img2 = document.getElementById('photo2');
-      img2.src = saved2;
-      img2.style.display = '';
-      var overlay2 = img2.parentElement.querySelector('.upload-overlay');
-      if (overlay2) overlay2.style.display = 'none';
+    for (var i = 0; i < 5; i++) {
+      var saved = localStorage.getItem('photo' + i);
+      if (saved) {
+        var img = document.getElementById('photo' + i);
+        if (img) {
+          img.src = saved;
+          img.style.display = '';
+          var overlay = img.parentElement.querySelector('.upload-overlay');
+          if (overlay) overlay.style.display = 'none';
+        }
+      }
     }
   })();
 
-  // ── 表单中照片上传 ──
-  var formPhotos = [];  // 存储表单上传的照片 base64
+  // ── 投票功能 ──
+  var VOTE_KEY = 'peng_club_votes';
+  var MY_VOTE_KEY = 'peng_club_my_vote';
+
+  function getVotes() {
+    return JSON.parse(localStorage.getItem(VOTE_KEY) || '[0,0,0,0,0]');
+  }
+
+  function saveVotes(votes) {
+    localStorage.setItem(VOTE_KEY, JSON.stringify(votes));
+  }
+
+  function castVote(index) {
+    // 检查是否已投票
+    if (localStorage.getItem(MY_VOTE_KEY) !== null) {
+      showToast('👋 你已经投过票啦～看看结果吧！');
+      return;
+    }
+    var votes = getVotes();
+    votes[index] = (votes[index] || 0) + 1;
+    saveVotes(votes);
+    localStorage.setItem(MY_VOTE_KEY, String(index));
+    // 标记已投票
+    document.getElementById('voteSection').classList.add('voted');
+    var btns = document.querySelectorAll('#voteOptions button');
+    btns[index].classList.add('voted');
+    btns[index].textContent = '✅ ' + btns[index].textContent;
+    updateVoteDisplay();
+    showToast('🎉 投票成功！感谢参与～');
+  }
+
+  function updateVoteDisplay() {
+    var votes = getVotes();
+    var total = 0;
+    for (var i = 0; i < votes.length; i++) total += votes[i];
+    if (total === 0) {
+      document.getElementById('voteTotal').textContent = '';
+      return;
+    }
+    document.getElementById('voteTotal').textContent = '共 ' + total + ' 人参与投票';
+    for (var i = 0; i < votes.length; i++) {
+      var pct = total > 0 ? Math.round(votes[i] / total * 100) : 0;
+      document.getElementById('voteBar' + i).style.width = pct + '%';
+      document.getElementById('votePct' + i).textContent = votes[i] + '票 (' + pct + '%)';
+    }
+  }
+
+  // 页面加载时恢复投票状态
+  (function() {
+    var myVote = localStorage.getItem(MY_VOTE_KEY);
+    if (myVote !== null) {
+      document.getElementById('voteSection').classList.add('voted');
+      var btn = document.querySelectorAll('#voteOptions button')[parseInt(myVote)];
+      if (btn) {
+        btn.classList.add('voted');
+        btn.textContent = '✅ ' + btn.textContent;
+      }
+    }
+    updateVoteDisplay();
+  })();
+
+  // ── 表单照片上传 ──
+  var formPhotos = [];
 
   function handleFormPhotoUpload(input) {
     if (!input.files) return;
@@ -802,7 +996,6 @@
         reader.onload = function(e) {
           var dataUrl = e.target.result;
           formPhotos.push(dataUrl);
-          // 创建预览
           var item = document.createElement('div');
           item.className = 'preview-item';
           var img = document.createElement('img');
@@ -845,42 +1038,37 @@
     if (!name) { showToast('👋 至少告诉我你的称呼嘛～'); return; }
     if (!contactVal) { showToast('📱 留下联系方式我才能找到你呀～'); return; }
 
-    // 收集数据
     var data = {
       name: name,
       age: document.getElementById('age').value || '保密',
       gender: document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '未填写',
       contact: contactVal,
       message: document.getElementById('message').value.trim() || '（什么都没写，但留下了联系方式）',
-      photos: formPhotos.slice(),  // 保存照片数组的副本
+      photos: formPhotos.slice(),
       time: new Date().toLocaleString('zh-CN'),
     };
 
-    // 存到 localStorage
-    var all = JSON.parse(localStorage.getItem('landlord_matchmakers') || '[]');
+    var all = JSON.parse(localStorage.getItem('peng_matchmakers') || '[]');
     all.push(data);
-    localStorage.setItem('landlord_matchmakers', JSON.stringify(all));
+    localStorage.setItem('peng_matchmakers', JSON.stringify(all));
 
-    // 禁用按钮防重复
     submitBtn.disabled = true;
     submitBtn.textContent = '⏳ 发送中...';
 
     setTimeout(function() {
       modal.classList.add('show');
       form.reset();
-      // 清空表单照片
       formPhotos = [];
       document.getElementById('formPhotoPreview').innerHTML = '';
       document.getElementById('formPhotoArea').style.display = '';
       submitBtn.disabled = false;
-      submitBtn.textContent = '💛 发 送 心 动 信 号';
+      submitBtn.textContent = '💌 发 送 心 动 信 号';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 800);
   });
 
-  // ── 查看报名数据（在浏览器控制台输入 showData() 即可查看） ──
   window.showData = function() {
-    var all = JSON.parse(localStorage.getItem('landlord_matchmakers') || '[]');
+    var all = JSON.parse(localStorage.getItem('peng_matchmakers') || '[]');
     console.table(all.map(function(item) {
       var copy = Object.assign({}, item);
       if (copy.photos && copy.photos.length > 0) {
@@ -894,7 +1082,7 @@
 
   function closeModal() {
     modal.classList.remove('show');
-    showToast('🎉 太棒了！包租公会尽快联系你的～');
+    showToast('🎉 太棒了！鹏哥会尽快联系你的～');
   }
 
   function showToast(msg) {
@@ -915,7 +1103,7 @@
           f.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
           f.style.opacity = '1';
           f.style.transform = 'translateY(0)';
-        }, 200 + idx * 200);
+        }, 200 + idx * 150);
       })(frames[i], i);
     }
   });
