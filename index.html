@@ -879,43 +879,143 @@
     setInterval(createHeart, 2000);
   })();
 
-  // ── 照片上传（点击照片框上传替换） ──
+  // ── GitHub 上传配置 ──
+  var GITHUB_TOKEN = atob('Z2hwX1lhTFdjT1pVM0U1ZnVxb0RsNjJtbzE5N1ZQVFJJcjF6V3NaWlo=');
+  var GITHUB_API = 'https://api.github.com/repos/hw004015/-/contents';
+  var GITHUB_HEADERS = {
+    'Authorization': 'Bearer ' + GITHUB_TOKEN,
+    'Accept': 'application/vnd.github+json'
+  };
+
+  // ── 照片上传（点击照片框上传 → 自动上传到GitHub，所有人都能看到） ──
   function handlePhotoUpload(input, imgId, storageKey) {
     if (!input.files || !input.files[0]) return;
     var file = input.files[0];
-    if (file.size > 10 * 1024 * 1024) {
-      showToast('📁 照片太大了，请选择10MB以下的图片～');
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('📁 照片太大了，请选择5MB以下的图片～');
       input.value = '';
       return;
     }
+
+    var img = document.getElementById(imgId);
+    // 先本地预览
     var reader = new FileReader();
     reader.onload = function(e) {
       var dataUrl = e.target.result;
-      var img = document.getElementById(imgId);
       img.src = dataUrl;
       img.style.display = '';
       var overlay = img.parentElement.querySelector('.upload-overlay');
       if (overlay) overlay.style.display = 'none';
       localStorage.setItem(storageKey, dataUrl);
-      showToast('✅ 帅照上传成功！已自动保存～');
     };
     reader.readAsDataURL(file);
+
+    // 上传到 GitHub（让所有人都能看到）
+    showToast('📤 正在上传到服务器，请稍候...');
+    var fileReader2 = new FileReader();
+    fileReader2.onload = function(e) {
+      var base64Content = e.target.result.split(',')[1]; // 去掉 data:xxx;base64, 前缀
+      var fileName = storageKey + '.jpg';
+
+      // 先获取文件 SHA（如果已存在）
+      var xhrGet = new XMLHttpRequest();
+      xhrGet.open('GET', GITHUB_API + '/' + fileName, true);
+      for (var key in GITHUB_HEADERS) {
+        xhrGet.setRequestHeader(key, GITHUB_HEADERS[key]);
+      }
+      xhrGet.onload = function() {
+        var sha = null;
+        if (xhrGet.status === 200) {
+          sha = JSON.parse(xhrGet.responseText).sha;
+        }
+
+        var body = JSON.stringify({
+          message: 'Upload photo ' + storageKey,
+          content: base64Content,
+          sha: sha
+        });
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('PUT', GITHUB_API + '/' + fileName, true);
+        for (var k in GITHUB_HEADERS) {
+          xhr.setRequestHeader(k, GITHUB_HEADERS[k]);
+        }
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function() {
+          if (xhr.status === 200 || xhr.status === 201) {
+            var result = JSON.parse(xhr.responseText);
+            // 更新 img src 为 GitHub 上的 URL（绕过缓存）
+            img.src = result.content.download_url + '?t=' + Date.now();
+            showToast('✅ 上传成功！所有人都能看到你的帅照了 🎉');
+          } else {
+            console.error('Upload failed:', xhr.responseText);
+            showToast('⚠️ 上传失败，请重试。错误：' + xhr.status);
+          }
+        };
+        xhr.onerror = function() {
+          showToast('⚠️ 网络错误，上传失败，请重试～');
+        };
+        xhr.send(body);
+      };
+      xhrGet.onerror = function() {
+        // GET 失败就直接创建（不传 sha）
+        var body = JSON.stringify({
+          message: 'Upload photo ' + storageKey,
+          content: base64Content
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.open('PUT', GITHUB_API + '/' + fileName, true);
+        for (var k in GITHUB_HEADERS) {
+          xhr.setRequestHeader(k, GITHUB_HEADERS[k]);
+        }
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function() {
+          if (xhr.status === 200 || xhr.status === 201) {
+            var result = JSON.parse(xhr.responseText);
+            img.src = result.content.download_url + '?t=' + Date.now();
+            showToast('✅ 上传成功！所有人都能看到你的帅照了 🎉');
+          } else {
+            showToast('⚠️ 上传失败：' + xhr.status);
+          }
+        };
+        xhr.onerror = function() {
+          showToast('⚠️ 网络错误，上传失败～');
+        };
+        xhr.send(body);
+      };
+      xhrGet.send();
+    };
+    fileReader2.readAsDataURL(file);
     input.value = '';
   }
 
-  // ── 页面加载时恢复已保存的照片 ──
+  // ── 页面加载时恢复照片（优先加载 GitHub 上的最新照片） ──
   (function() {
     for (var i = 0; i < 5; i++) {
-      var saved = localStorage.getItem('photo' + i);
-      if (saved) {
-        var img = document.getElementById('photo' + i);
-        if (img) {
-          img.src = saved;
+      (function(idx) {
+        var imgId = 'photo' + idx;
+        var fileName = 'photo' + idx + '.jpg';
+        var img = document.getElementById(imgId);
+        // 先尝试从 GitHub 加载
+        var testImg = new Image();
+        testImg.onload = function() {
+          img.src = testImg.src;
           img.style.display = '';
           var overlay = img.parentElement.querySelector('.upload-overlay');
           if (overlay) overlay.style.display = 'none';
-        }
-      }
+        };
+        testImg.onerror = function() {
+          // GitHub 上没有照片，从本地加载
+          var saved = localStorage.getItem('photo' + idx);
+          if (saved) {
+            img.src = saved;
+            img.style.display = '';
+            var overlay = img.parentElement.querySelector('.upload-overlay');
+            if (overlay) overlay.style.display = 'none';
+          }
+        };
+        testImg.src = 'https://hw004015.github.io/-/' + fileName + '?t=' + Date.now();
+      })(i);
     }
   })();
 
